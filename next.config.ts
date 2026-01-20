@@ -1,7 +1,9 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  // Enable standalone output for Electron production builds
+  // This creates a minimal Node.js server that can run independently
+  output: "standalone",
 };
 
 export default nextConfig;

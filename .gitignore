@@ -46,3 +46,7 @@ data/*
 # claude
 /claude*
 .claude/settings.local.json
+
+# electron
+/dist-electron
+/build
