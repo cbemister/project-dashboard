@@ -2,6 +2,8 @@
 
 A local dashboard to manage and navigate your development projects. Scan your projects folder, track what you're working on, and quickly open projects in VS Code, Explorer, or Terminal.
 
+**Now available as a native desktop app via Electron!**
+
 ## Features
 
 - **Project Scanner** - Automatically detects projects and their tech stack (Next.js, React, Vue, Python, etc.)
@@ -32,14 +34,20 @@ A local dashboard to manage and navigate your development projects. Scan your pr
    npm install
    ```
 
-3. **Start the development server:**
+3. **Start the app:**
+
+   **Option A: Desktop App (Electron)**
+   ```bash
+   npm run dev:electron
+   ```
+
+   **Option B: Browser Version**
    ```bash
    npm run dev
    ```
+   Then open [http://localhost:3000](http://localhost:3000)
 
-4. **Open your browser** to [http://localhost:3000](http://localhost:3000)
-
-5. **Configure your settings:**
+4. **Configure your settings:**
    - Click "Settings" in the top right
    - Set your **Projects Root Directory** (e.g., `C:/Users/YourName/Projects`)
    - Customize your **Category Folders** (subfolders in your root directory)
@@ -110,23 +118,63 @@ Settings are stored in `data/settings.json`:
 
 ## Tech Stack
 
-- **Next.js 14** - React framework with App Router
+- **Next.js 16** - React framework with App Router
+- **React 19** - UI library
 - **TypeScript** - Type safety
 - **CSS Modules** - Scoped styling (no Tailwind)
+- **Electron** - Desktop app wrapper
 - **Local JSON** - Simple file-based persistence
 
 ## Development
 
 ```bash
-# Start dev server
+# Start browser dev server
 npm run dev
 
-# Build for production
+# Start Electron desktop app (development)
+npm run dev:electron
+
+# Build for production (browser)
 npm run build
 
-# Start production server
+# Start production server (browser)
 npm start
 ```
+
+## Desktop App (Electron)
+
+The app can be packaged as a standalone desktop application for Windows, macOS, and Linux.
+
+### Development
+
+```bash
+# Run the desktop app in development mode
+npm run dev:electron
+```
+
+This starts both the Next.js dev server and the Electron window with hot reloading.
+
+### Building Distributables
+
+```bash
+# Build for all platforms
+npm run electron:build
+
+# Build for specific platforms
+npm run electron:build:win    # Windows (.exe installer + portable)
+npm run electron:build:mac    # macOS (.dmg)
+npm run electron:build:linux  # Linux (.AppImage + .deb)
+```
+
+Build outputs are placed in the `dist-electron/` directory.
+
+### How It Works
+
+The Electron version runs the full Next.js application internally:
+- **Development**: Launches the Next.js dev server and loads it in the Electron window
+- **Production**: Runs the Next.js standalone server bundled with the app
+
+All features work identically in both browser and desktop versions.
 
 ## Notes
 
