@@ -2,11 +2,22 @@
   "name": "project-dashboard",
   "version": "0.1.0",
   "private": true,
+  "main": "electron/main.js",
+  "author": "Project Dashboard Team",
+  "description": "Desktop application for managing and organizing development projects",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "electron:dev": "NODE_ENV=development electron .",
+    "electron:dev:wait": "wait-on http://localhost:3000 && NODE_ENV=development electron .",
+    "dev:electron": "concurrently -k \"npm run dev\" \"npm run electron:dev:wait\"",
+    "electron:build": "npm run build && electron-builder",
+    "electron:build:win": "npm run build && electron-builder --win",
+    "electron:build:mac": "npm run build && electron-builder --mac",
+    "electron:build:linux": "npm run build && electron-builder --linux",
+    "postinstall": "electron-builder install-app-deps"
   },
   "dependencies": {
     "next": "16.1.4",
@@ -18,8 +29,12 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "concurrently": "^9.2.1",
+    "electron": "^33.0.0",
+    "electron-builder": "^25.0.0",
     "eslint": "^9",
     "eslint-config-next": "16.1.4",
-    "typescript": "^5"
+    "typescript": "^5",
+    "wait-on": "^9.0.3"
   }
 }
