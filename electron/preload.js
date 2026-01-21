@@ -1,5 +1,11 @@
 // Preload script runs before the renderer process loads
 // It has access to both DOM APIs and Node.js environment
+const { contextBridge, ipcRenderer } = require('electron')
+
+// Expose Electron APIs to the renderer process securely
+contextBridge.exposeInMainWorld('electronAPI', {
+  selectDirectory: () => ipcRenderer.invoke('select-directory')
+})
 
 window.addEventListener('DOMContentLoaded', () => {
   const replaceText = (selector, text) => {
