@@ -9,6 +9,7 @@ const settingsSchema = z.object({
   ignoredFolders: z.array(z.string()).optional(),
   editor: z.enum(['vscode', 'cursor']).optional(),
   defaultAction: z.enum(['editor', 'explorer', 'terminal']).optional(),
+  hasCompletedOnboarding: z.boolean().optional(),
 });
 
 export async function GET() {

@@ -10,6 +10,7 @@ export interface Settings {
   ignoredFolders: string[];
   editor: Editor;
   defaultAction: DefaultAction;
+  hasCompletedOnboarding: boolean;
 }
 
 const SETTINGS_PATH = path.join(process.cwd(), 'data', 'settings.json');
@@ -24,6 +25,7 @@ const DEFAULT_SETTINGS: Settings = {
   ],
   editor: 'vscode',
   defaultAction: 'editor',
+  hasCompletedOnboarding: false,
 };
 
 export async function loadSettings(): Promise<Settings> {

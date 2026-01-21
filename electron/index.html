@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'">
+    <title>Project Dashboard</title>
+    <style>
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+        margin: 0;
+        padding: 40px;
+        background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        color: #fff;
+        min-height: 100vh;
+        box-sizing: border-box;
+      }
+      h1 {
+        margin-bottom: 10px;
+      }
+      .subtitle {
+        color: #8892b0;
+        margin-bottom: 40px;
+      }
+      .info-box {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+        padding: 20px;
+        max-width: 500px;
+      }
+      .version-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      .version-row:last-child {
+        border-bottom: none;
+      }
+      .label {
+        color: #8892b0;
+      }
+      .value {
+        color: #64ffda;
+        font-family: monospace;
+      }
+      .status {
+        margin-top: 30px;
+        padding: 15px;
+        background: rgba(100, 255, 218, 0.1);
+        border-left: 3px solid #64ffda;
+        border-radius: 4px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Project Dashboard</h1>
+    <p class="subtitle">Electron Desktop App</p>
+
+    <div class="info-box">
+      <div class="version-row">
+        <span class="label">Electron</span>
+        <span class="value" id="electron-version">loading...</span>
+      </div>
+      <div class="version-row">
+        <span class="label">Chromium</span>
+        <span class="value" id="chrome-version">loading...</span>
+      </div>
+      <div class="version-row">
+        <span class="label">Node.js</span>
+        <span class="value" id="node-version">loading...</span>
+      </div>
+    </div>
+
+    <div class="status">
+      Electron is working correctly! The next step is to integrate the Next.js app.
+    </div>
+  </body>
+</html>

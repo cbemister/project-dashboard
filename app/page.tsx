@@ -1,9 +1,10 @@
 'use client';
 
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useCallback } from 'react';
 import Link from 'next/link';
 import styles from './page.module.css';
 import type { Project, Category } from '@/lib/types';
+import OnboardingWizard from './components/OnboardingWizard/OnboardingWizard';
 
 type SortField = 'name' | 'category' | 'lastCommit' | 'size';
 type SortDir = 'asc' | 'desc';
@@ -22,6 +23,7 @@ export default function Dashboard() {
   const [showStaleOnly, setShowStaleOnly] = useState(false);
   const [editor, setEditor] = useState<Editor>('vscode');
   const [defaultAction, setDefaultAction] = useState<DefaultAction>('editor');
+  const [showOnboarding, setShowOnboarding] = useState(false);
 
   useEffect(() => {
     fetchProjects();
@@ -34,10 +36,21 @@ export default function Dashboard() {
       const data = await res.json();
       if (data.editor) setEditor(data.editor);
       if (data.defaultAction) setDefaultAction(data.defaultAction);
+
+      // Show onboarding wizard if not completed and no root path configured
+      if (!data.hasCompletedOnboarding && !data.rootPath) {
+        setShowOnboarding(true);
+      }
     } catch {
-      // Use default
+      // Show onboarding on error (likely first run)
+      setShowOnboarding(true);
     }
   }
+
+  const handleOnboardingComplete = useCallback(() => {
+    setShowOnboarding(false);
+    fetchProjects(true);
+  }, []);
 
   async function fetchProjects(forceRefresh = false) {
     try {
@@ -296,10 +309,14 @@ export default function Dashboard() {
   }
 
   return (
-    <div className={styles.page}>
-      <header className={styles.header}>
-        <h1>Project Dashboard</h1>
-        <div className={styles.headerRight}>
+    <>
+      {showOnboarding && (
+        <OnboardingWizard onComplete={handleOnboardingComplete} />
+      )}
+      <div className={styles.page}>
+        <header className={styles.header}>
+          <h1>Project Dashboard</h1>
+          <div className={styles.headerRight}>
           <div className={styles.stats}>
             <span>{projects.length} projects</span>
             <span>{focusProjects.length} in focus</span>
@@ -483,6 +500,7 @@ export default function Dashboard() {
       {filteredProjects.length === 0 && (
         <div className={styles.empty}>No projects match your filters</div>
       )}
-    </div>
+      </div>
+    </>
   );
 }

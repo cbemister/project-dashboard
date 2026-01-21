@@ -2,6 +2,8 @@
 
 A local dashboard to manage and navigate your development projects. Scan your projects folder, track what you're working on, and quickly open projects in VS Code, Explorer, or Terminal.
 
+Available as both a web app and a standalone Electron desktop app.
+
 ## Features
 
 - **Project Scanner** - Automatically detects projects and their tech stack (Next.js, React, Vue, Python, etc.)
@@ -12,6 +14,7 @@ A local dashboard to manage and navigate your development projects. Scan your pr
 - **Archive** - Move stale projects to an archive folder
 - **Category Organization** - Organize projects into customizable category folders
 - **Fast Loading** - Cached data for instant load, background refresh for accuracy
+- **Desktop App** - Run as a standalone Electron app with native folder picker
 
 ## Requirements
 
@@ -38,6 +41,14 @@ A local dashboard to manage and navigate your development projects. Scan your pr
    ```
 
 4. **Open your browser** to [http://localhost:3000](http://localhost:3000)
+
+### Running as Desktop App (Electron)
+
+```bash
+npm run electron:start
+```
+
+This starts both the Next.js dev server and Electron app together. The desktop app provides native features like a folder picker dialog for selecting your projects directory.
 
 5. **Configure your settings:**
    - Click "Settings" in the top right
@@ -110,22 +121,33 @@ Settings are stored in `data/settings.json`:
 
 ## Tech Stack
 
-- **Next.js 14** - React framework with App Router
+- **Next.js 16** - React framework with App Router
+- **React 19** - UI library
 - **TypeScript** - Type safety
 - **CSS Modules** - Scoped styling (no Tailwind)
+- **Electron 34** - Desktop app wrapper with native features
 - **Local JSON** - Simple file-based persistence
 
 ## Development
 
 ```bash
-# Start dev server
+# Start Next.js dev server
 npm run dev
+
+# Start Electron desktop app (starts Next.js + Electron together)
+npm run electron:start
+
+# Start Electron in dev mode (requires Next.js running separately)
+npm run electron:dev
 
 # Build for production
 npm run build
 
 # Start production server
 npm start
+
+# Run Electron (production mode)
+npm run electron
 ```
 
 ## Notes
